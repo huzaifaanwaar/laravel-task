@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UserActionOccurred;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
@@ -45,6 +46,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        event(new UserActionOccurred($user, 'User registered successfully', $request->ip(), $request->userAgent()));
         Auth::login($user);
         return redirect()->route('dashboard')
             ->with('success', 'Welcome to ' . config('app.name') . ', ' . $user->name . '! Your account has been created successfully.');
