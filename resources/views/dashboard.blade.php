@@ -89,6 +89,26 @@
                             {{ Auth::user()->posts()->count() }}
                         </div>
                     </div>
+                    @if($apiToken)
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <strong>API Token:</strong>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm" value="{{ $apiToken }}" readonly id="apiToken">
+                                    <button class="btn btn-outline-secondary btn-sm" type="button" onclick="copyToken()">
+                                        <i class="bi bi-clipboard"></i>
+                                    </button>
+                                </div>
+                                <small class="text-muted">
+                                    <i class="bi bi-info-circle me-1"></i>
+                                    Use this token to access the API endpoints
+                                </small>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

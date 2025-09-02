@@ -23,9 +23,12 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('api-token')->plainTextToken;
+            $request->session()->put('api_token', $token);
             $request->session()->regenerate();
             return redirect()->intended(route('dashboard'))
-                ->with('success', 'Welcome back, ' . Auth::user()->name . '!');
+                ->with('success', 'Welcome back, ' . $user->name . '!');
         }
 
         throw ValidationException::withMessages([
@@ -46,6 +49,9 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $token = $user->createToken('api-token')->plainTextToken;
+        $request->session()->put('api_token', $token);
+
         event(new UserActionOccurred($user, 'User registered successfully', $request->ip(), $request->userAgent()));
         Auth::login($user);
         return redirect()->route('dashboard')
@@ -54,6 +60,10 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
+        $user = Auth::user();
+        if ($user) {
+            $user->tokens()->delete();
+        }
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
@@ -70,6 +80,8 @@ class AuthController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('dashboard', compact('activityLogs'));
+        $apiToken = session('api_token');
+
+        return view('dashboard', compact('activityLogs', 'apiToken'));
     }
 }
