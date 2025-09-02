@@ -65,6 +65,11 @@ class AuthController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $user = Auth::user();
+        $activityLogs = $user->activityLogs()
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('dashboard', compact('activityLogs'));
     }
 }

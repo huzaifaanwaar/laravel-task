@@ -3,7 +3,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }} - @yield('title', 'Welcome')</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         body {
@@ -35,7 +36,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
             border-radius: 10px;
-            padding: 12px 30px;
+            padding: 12px 20px;
             font-weight: 600;
             transition: all 0.3s ease;
         }
@@ -43,6 +44,42 @@
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-outline-primary {
+            background: transparent;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-weight: 600;
+            color: #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            transform: translateY(-2px);
+            border: 2px solid #667eea;
+        }
+
+        .btn-outline-secondary {
+            background: transparent;
+            border: 2px solid #6c757d;
+            border-radius: 10px;
+            padding: 12px 20px;
+            font-weight: 600;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-secondary:hover {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: #fff;
+            box-shadow: 0 10px 25px rgba(108, 117, 125, 0.3);
+            transform: translateY(-2px);
+            border: 2px solid #6c757d;
         }
 
         .form-control {
